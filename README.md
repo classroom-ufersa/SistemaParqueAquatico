@@ -1,2 +1,2 @@
 # SistemaParqueAquatico
-Sistema de Gerenciamento de Parque Aquatico
+Sistema de Gerenciamento de Parque Aquático
