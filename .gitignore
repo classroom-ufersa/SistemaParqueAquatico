@@ -2,6 +2,9 @@
 *.d
 .vscode
 
+# Python files
+venv
+
 # Object files
 *.o
 *.ko
