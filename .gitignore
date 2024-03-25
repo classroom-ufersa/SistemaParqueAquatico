@@ -1,6 +1,12 @@
 # Prerequisites
 *.d
 
+# VS Code
+.vscode
+
+# Python
+venv
+
 # Object files
 *.o
 *.ko
