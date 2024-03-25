@@ -48,7 +48,6 @@ class Cliente:
             if len(cliente) == 0:
                 return False
             
-            #retirando o \n do documento
             cliente[2] = cliente[2].replace('\n', '')
             
             if cliente[2] == f"{documento}":
@@ -63,6 +62,3 @@ class Cliente:
         arquivo.close()
         
         print('Cliente cadastrado com sucesso!')
-        
-teste = Cliente()
-teste.adiciona_cliente()
