@@ -126,4 +126,6 @@ def editar_cliente():
                     arquivo.close()
                     st.success("Cliente editado com sucesso!")
                     st.rerun()
-    
+
+def buscar_cliente():
+    pass

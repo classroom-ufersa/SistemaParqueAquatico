@@ -10,6 +10,7 @@ class Cliente:
         return f'Nome: {self.nome}, Idade: {self.idade}, Documento: {self.documento}'
     
     def adiciona_cliente(self):
+        st.header("Adicionar Cliente")
         self.nome = (st.text_input("Nome:")).title()
         self.idade = st.text_input("Idade:", value="0")
         self.documento = st.text_input("CPF (somente números):", value="0")
