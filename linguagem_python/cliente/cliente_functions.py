@@ -128,4 +128,37 @@ def editar_cliente():
                     st.rerun()
 
 def buscar_cliente():
-    pass
+    """ Busca um cliente pelo nome no arquivo clientes.txt
+
+    Returns:
+        None
+    """
+    arquivo = open('cliente/clientes.txt', 'r', encoding= 'latin-1')
+    
+    clientes = []
+    st.header("Buscar cliente")
+    
+    for linha in arquivo:
+        cliente = linha.split('\t')
+        
+        if len(cliente) == 3:
+            cliente[2] = cliente[2].replace('\n', '')
+            clientes.append(cliente)
+        else: 
+            print("Arquivo vazio")
+            st.warning("O arquivo está vazio")
+            return None
+    
+    nome = st.text_input("Digite o nome do cliente que deseja buscar:", value="")
+    
+    if st.button("Buscar"):
+        if nome == "":
+            st.warning("Por favor insira um nome")
+        else:
+            for cliente in clientes:
+                if nome.lower() in cliente[0].lower():
+                    st.success(f'Cliente encontrado: {cliente[0]}, {cliente[1]} anos, CPF: {cliente[2]}')
+                    return None
+            st.warning("Cliente não encontrado")
+    
+    arquivo.close()
