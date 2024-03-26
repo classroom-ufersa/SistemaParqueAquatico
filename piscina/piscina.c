@@ -43,3 +43,18 @@ void adicona_piscina(Piscina* piscina) {
 
     printf("Piscina cadastrada com sucesso!\n");
 }
+
+void listar_piscinas() {
+    FILE* arquivo = fopen("piscinas.txt", "r");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo! Encerrando o programa...\n");
+        exit(1);
+    }
+
+    char linha[255];
+    while (fgets(linha, 255, arquivo) != NULL) {
+        printf("%s", linha);
+    }
+
+    fclose(arquivo);
+}
