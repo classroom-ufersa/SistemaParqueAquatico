@@ -1,5 +1,6 @@
 import streamlit as st 
 import pandas as pd
+from time import sleep
 
 def listar_piscinas():
     
@@ -77,7 +78,9 @@ def adicionar_banhistas():
         if error:
             st.warning("Por favor insira um ID válido")
         else:
-            if (identificacao > len(piscinas)) or (identificacao < 0) or (identificacao == ""):
+            existentes = [index[0] for index in piscinas]
+            
+            if (str(identificacao) not in existentes) or (identificacao < 0) or (identificacao == ""):
                 st.warning("ID inválido")
             else:
                 arquivo = open('piscina/piscinas.txt', 'w', encoding= 'latin-1')
@@ -87,11 +90,15 @@ def adicionar_banhistas():
                 else:
                     for piscina in piscinas:
                         if piscina[0] == str(identificacao):
-                            piscina[3] = int(piscina[3]) + 1
-                            arquivo.write(f'{piscina[0]}\t{piscina[1]}\t{piscina[2]}\t{piscina[3]}\n')
-                        else:
-                            arquivo.write(f'{piscina[0]}\t{piscina[1]}\t{piscina[2]}\t{piscina[3]}\n')
+                            if int(piscina[1]) <= int(piscina[3]):
+                                st.warning("A piscina está cheia")
+                            else:
+                                piscina[3] = int(piscina[3]) + 1
+                                st.success("Banhistas adicionados com sucesso!")
+                        
+                        arquivo.write(f'{piscina[0]}\t{piscina[1]}\t{piscina[2]}\t{piscina[3]}\n')
                 
                 arquivo.close()
-                st.success("Banhistas adicionados com sucesso!")
+                sleep(0.5)
                 st.rerun()
+                
