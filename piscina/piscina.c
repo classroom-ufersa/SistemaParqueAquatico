@@ -1,4 +1,4 @@
-#include "piscina.h"
+// #include "piscina.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -57,4 +57,49 @@ void listar_piscinas() {
     }
 
     fclose(arquivo);
+}
+
+void remover_piscina(Piscina* piscina) {
+    printf("----------------------------------------------------------------------\n");
+    listar_piscinas();
+    printf("----------------------------------------------------------------------\n");
+
+    int id_aux;
+    printf("Informe o ID da piscina que deseja remover: ");
+    scanf("%d", &id_aux);
+
+    FILE* arquivo = fopen("piscinas.txt", "r");
+    FILE* arquivo_temp = fopen("piscinas_temp.txt", "w");
+    if (arquivo == NULL || arquivo_temp == NULL) {
+        printf("Erro ao abrir o arquivo! Encerrando o programa...\n");
+        exit(1);
+    }
+
+    char linha[255];
+    while (fgets(linha, 255, arquivo) != NULL) {
+        int id;
+        sscanf(linha, "%d", &id);
+        if (id != id_aux) {
+            fprintf(arquivo_temp, "%s", linha);
+        }
+    }
+
+    fclose(arquivo);
+    fclose(arquivo_temp);
+
+    remove("piscinas.txt");
+    rename("piscinas_temp.txt", "piscinas.txt");
+
+    printf("Piscina removida com sucesso!\n");
+}
+
+int main() {
+    Piscina piscina_user;
+    
+    adicona_piscina(&piscina_user);
+    // a função listar_piscinas já está sendo chamada dentro da função remover_piscina
+    // listar_piscinas(); 
+    remover_piscina(&piscina_user);
+
+    return 0;
 }
