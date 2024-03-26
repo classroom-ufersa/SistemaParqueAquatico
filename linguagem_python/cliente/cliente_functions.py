@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from time import sleep
 
 def listar_clientes():
     """ Lista os clientes cadastrados no arquivo clientes.txt
@@ -75,6 +76,7 @@ def remover_cliente():
                 
                 arquivo.close()
                 st.success("Cliente removido com sucesso!")
+                sleep(0.5)
                 st.rerun()
 
 def editar_cliente():
@@ -120,11 +122,12 @@ def editar_cliente():
                     for index, cliente in enumerate(clientes):
                         if index + 1 == num_id:
                             arquivo.write(f'{nome_editado}\t{idade_editada}\t{documento_editado}\n')
+                            st.success("Cliente editado com sucesso!")
                         else:
                             arquivo.write(f'{cliente[0]}\t{cliente[1]}\t{cliente[2]}\n')
                     
                     arquivo.close()
-                    st.success("Cliente editado com sucesso!")
+                    sleep(0.5)
                     st.rerun()
 
 def buscar_cliente():

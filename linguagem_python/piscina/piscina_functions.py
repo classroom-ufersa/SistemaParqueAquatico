@@ -41,7 +41,7 @@ def remover_piscina():
     st.header("Remover piscina")
     
     try:
-        identificacao = int(st.text_input("Digite o ID do cliente que deseja remover:", value='0'))
+        identificacao = int(st.text_input("Digite o ID da piscina que deseja remover:", value='0'))
         error = False
     except:
         error = True
@@ -60,7 +60,8 @@ def remover_piscina():
                         arquivo.write(f'{piscina[0]}\t{piscina[1]}\t{piscina[2]}\t{piscina[3]}\n')
                 
                 arquivo.close()
-                st.success("Cliente removido com sucesso!")
+                st.success("Piscina removida com sucesso!")
+                sleep(0.5)
                 st.rerun()
 
 def adicionar_banhistas():
