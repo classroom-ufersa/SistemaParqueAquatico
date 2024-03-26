@@ -6,7 +6,7 @@ def listar_piscinas():
     arquivo = open('piscina/piscinas.txt', 'r', encoding= 'latin-1')
     
     piscinas = []
-    st.header("piscinas cadastradas")
+    st.header("Piscinas cadastradas")
     
     for linha in arquivo:
         piscina = linha.split('\t')
@@ -63,4 +63,35 @@ def remover_piscina():
                 st.rerun()
 
 def adicionar_banhistas():
-    pass
+    piscinas = listar_piscinas()
+    
+    st.header("Adicionar banhistas")
+    
+    try:
+        identificacao = int(st.text_input("Digite o ID da piscina que deseja adicionar banhistas:", value='0'))
+        error = False
+    except:
+        error = True
+    
+    if st.button("Adicionar banhista"):
+        if error:
+            st.warning("Por favor insira um ID válido")
+        else:
+            if (identificacao > len(piscinas)) or (identificacao < 0) or (identificacao == ""):
+                st.warning("ID inválido")
+            else:
+                arquivo = open('piscina/piscinas.txt', 'w', encoding= 'latin-1')
+                if len(piscinas) == 0:
+                    st.warning("Não há piscinas cadastradas")
+                    return None
+                else:
+                    for piscina in piscinas:
+                        if piscina[0] == str(identificacao):
+                            piscina[3] = int(piscina[3]) + 1
+                            arquivo.write(f'{piscina[0]}\t{piscina[1]}\t{piscina[2]}\t{piscina[3]}\n')
+                        else:
+                            arquivo.write(f'{piscina[0]}\t{piscina[1]}\t{piscina[2]}\t{piscina[3]}\n')
+                
+                arquivo.close()
+                st.success("Banhistas adicionados com sucesso!")
+                st.rerun()

@@ -29,5 +29,5 @@ def main():
     elif choice == "Buscar cliente por nome":
         buscar_cliente()
     elif choice == "Listar piscinas e o número de clientes presentes":
-        listar_piscinas()
+        adicionar_banhistas()
         
