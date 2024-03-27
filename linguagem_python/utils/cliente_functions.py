@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from time import sleep
+from .validations import *
 
 def listar_clientes():
     """ Lista os clientes cadastrados no arquivo clientes.txt
@@ -16,16 +17,20 @@ def listar_clientes():
     clientes = []
     st.header("Clientes cadastrados")
     
+    if arquivoVazio('cliente/clientes.txt'):
+        st.warning("O arquivo está vazio")
+        return None
+    
+    if arquivoVazio('cliente/clientes.txt'):
+        st.warning("O arquivo está vazio")
+        return None
+    
     for linha in arquivo:
         cliente = linha.split('\t')
         
         if len(cliente) == 3:
             cliente[2] = cliente[2].replace('\n', '')
             clientes.append(cliente)
-        else: 
-            print("Arquivo vazio")
-            st.warning("O arquivo está vazio")
-            return None
     
     nomes = [cliente[0] for cliente in clientes]
     idades = [cliente[1] for cliente in clientes]
@@ -55,23 +60,25 @@ def remover_cliente():
     
     st.header("Remover cliente")
     
-    try:
-        cliente_id = int(st.text_input("Digite o ID do cliente que deseja remover:", value='0'))
-        error = False
-    except:
-        error = True
+    if clientes == None:
+        st.warning("Não há clientes cadastrados")
+        return None
+    
+    
+    cliente_id = st.text_input("Digite o ID do cliente que deseja remover:", value='0')
+    
     
     if st.button("Deletar cliente"):
-        if error:
+        if validInteger(cliente_id) == False:
             st.warning("Por favor insira um ID válido")
         else:
-            if (cliente_id > len(clientes)) or (cliente_id <= 0) or (cliente_id == ""):
+            if (int(cliente_id) > len(clientes)) or (int(cliente_id )<= 0) or (cliente_id == ""):
                 st.warning("ID inválido")
             else:
                 arquivo = open('cliente/clientes.txt', 'w', encoding= 'latin-1')
                 
                 for index, cliente in enumerate(clientes):
-                    if index + 1 != cliente_id:
+                    if index + 1 != int(cliente_id):
                         arquivo.write(f'{cliente[0]}\t{cliente[1]}\t{cliente[2]}\n')
                 
                 arquivo.close()
@@ -90,6 +97,14 @@ def editar_cliente():
     
     st.header("Editar informações do cliente")
     
+    if clientes == None:
+        st.warning("Não há clientes cadastrados")
+        return None
+    
+    if clientes:
+        st.warning("Não há clientes cadastrados")
+        return None
+    
     cliente_id = st.text_input("Digite o ID do cliente que deseja editar:", value='0')
     nome_editado = st.text_input("Nome:", value="")
     idade_editada = st.text_input("Idade:", value="")
@@ -99,19 +114,13 @@ def editar_cliente():
         st.warning("Por favor preencha todos os campos")
         return False
     
-    try:
-        num_id = int(cliente_id)
-        idade = int(idade_editada)
-        documento = int(documento_editado)
-        error = False
-    except:
-        error = True
+    validations = [validInteger(cliente_id), validString(nome_editado), validInteger(idade_editada), validInteger(documento_editado)]
     
     if st.button("Editar cliente"):
-        if error or nome_editado.isnumeric():
+        if (False in validations):
             st.warning("Por favor insira Informações válidas")
         else:
-            if (num_id > len(clientes)) or (num_id <= 0) or (num_id == ""):
+            if (int(cliente_id) > len(clientes)) or (int(cliente_id) <= 0) or (cliente_id == ""):
                 st.warning("ID inválido")
             else:
                 if len(documento_editado) != 11:
@@ -120,7 +129,7 @@ def editar_cliente():
                     arquivo = open('cliente/clientes.txt', 'w', encoding= 'latin-1')
                 
                     for index, cliente in enumerate(clientes):
-                        if index + 1 == num_id:
+                        if index + 1 == int(cliente_id):
                             arquivo.write(f'{nome_editado}\t{idade_editada}\t{documento_editado}\n')
                             st.success("Cliente editado com sucesso!")
                         else:
@@ -141,16 +150,16 @@ def buscar_cliente():
     clientes = []
     st.header("Buscar cliente")
     
+    if arquivoVazio('cliente/clientes.txt'):
+        st.warning("O arquivo está vazio")
+        return None
+    
     for linha in arquivo:
         cliente = linha.split('\t')
         
         if len(cliente) == 3:
             cliente[2] = cliente[2].replace('\n', '')
             clientes.append(cliente)
-        else: 
-            print("Arquivo vazio")
-            st.warning("O arquivo está vazio")
-            return None
     
     nome = st.text_input("Digite o nome do cliente que deseja buscar:", value="")
     
@@ -161,7 +170,29 @@ def buscar_cliente():
             for cliente in clientes:
                 if nome.lower() in cliente[0].lower():
                     st.success(f'Cliente encontrado: {cliente[0]}, {cliente[1]} anos, CPF: {cliente[2]}')
-                    return None
+                    return True
+                arquivo.close()
             st.warning("Cliente não encontrado")
+            return False
+
+def total_clientes():
+    """ Retorna o total de clientes cadastrados no arquivo clientes.txt
+
+    Returns:
+        int: Total de clientes cadastrados
+    """
+    arquivo = open('cliente/clientes.txt', 'r', encoding= 'latin-1')
+    
+    clientes = []
+    
+    if arquivoVazio('cliente/clientes.txt'):
+        return 0
+    
+    for linha in arquivo:
+        cliente = linha.split('\t')
+        
+        if len(cliente) == 3:
+            clientes.append(cliente)
     
     arquivo.close()
+    return len(clientes)
