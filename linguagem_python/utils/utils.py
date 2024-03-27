@@ -97,6 +97,8 @@ def pagina_inicial():
                 - Adicionar piscina: Adiciona uma nova piscina ao parque aquático;
                 - Remover piscina: Remove uma piscina do parque aquático;
                 - Listar piscinas: Lista as piscinas do parque aquático e permite adicionar e remover banhistas de cada piscina.
+                - Adicionar banhistas: Adiciona banhistas a uma piscina;
+                - Remover banhistas: Remove banhistas de uma piscina.
                 
                 ## Clientes
                 """)
