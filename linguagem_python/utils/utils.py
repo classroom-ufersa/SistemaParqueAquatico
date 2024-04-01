@@ -75,7 +75,7 @@ def pagina_inicial():
         st.write("")
 
     with col2:
-        st.image("logo.png", width=500)
+        st.image("linguagem_python/logo.png", width=500)
 
     with col3:
         st.write("")
