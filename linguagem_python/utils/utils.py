@@ -23,7 +23,7 @@ def main():
     st.sidebar.title("Gerenciamento Parque Aquático")
     
     # adicionando a logo ao sidebar
-    st.sidebar.image("logo.png", width=200)
+    st.sidebar.image("linguagem_python/logo.png", width=200)
     
     menu_options = ["Pagina Inicial", "Gerenciar Piscinas", "Gerenciar Clientes", "Sair"]
     

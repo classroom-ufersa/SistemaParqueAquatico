@@ -6,12 +6,12 @@ from .cliente_functions import total_clientes
 
 def listar_piscinas():
     
-    arquivo = open('piscina/piscinas.txt', 'r', encoding= 'latin-1')
+    arquivo = open('linguagem_python/piscina/piscinas.txt', 'r', encoding= 'latin-1')
     
     piscinas = []
     st.header("Piscinas cadastradas")
     
-    if arquivoVazio('piscina/piscinas.txt'):
+    if arquivoVazio('linguagem_python/piscina/piscinas.txt'):
         st.warning("O arquivo está vazio")
         return None
     
@@ -58,7 +58,7 @@ def remover_piscina():
             if (identificacao not in identificacoes) or (int(identificacao) < 0) or (identificacao == ""):
                 st.warning("ID inválido")
             else:
-                arquivo = open('piscina/piscinas.txt', 'w', encoding= 'latin-1')
+                arquivo = open('linguagem_python/piscina/piscinas.txt', 'w', encoding= 'latin-1')
                 
                 for index, piscina in enumerate(piscinas):
                     if piscina[0] != identificacao:
@@ -103,7 +103,7 @@ def adicionar_banhistas():
                 st.warning("ID inválido")
             else:
                 if total_banhistas < total_clientes():
-                    arquivo = open('piscina/piscinas.txt', 'w', encoding= 'latin-1')
+                    arquivo = open('linguagem_python/piscina/piscinas.txt', 'w', encoding= 'latin-1')
                     for piscina in piscinas:
                         if piscina[0] == str(identificacao):
                             if int(piscina[1]) <= int(piscina[3]):
@@ -147,7 +147,7 @@ def remover_banhista():
             if (str(identificacao) not in existentes) or (int(identificacao) < 0) or (identificacao == ""):
                 st.warning("ID inválido")
             else:
-                arquivo = open('piscina/piscinas.txt', 'w', encoding= 'latin-1')
+                arquivo = open('linguagem_python/piscina/piscinas.txt', 'w', encoding= 'latin-1')
                 
                 for piscina in piscinas:
                     if piscina[0] == str(identificacao):

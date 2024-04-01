@@ -12,16 +12,16 @@ def listar_clientes():
         clientes (list): Lista com os clientes cadastrados
         None: Retorna None caso o arquivo esteja vazio
     """
-    arquivo = open('cliente/clientes.txt', 'r', encoding= 'latin-1')
+    arquivo = open('linguagem_python/cliente/clientes.txt', 'r', encoding= 'latin-1')
     
     clientes = []
     st.header("Clientes cadastrados")
     
-    if arquivoVazio('cliente/clientes.txt'):
+    if arquivoVazio('linguagem_python/cliente/clientes.txt'):
         st.warning("O arquivo está vazio")
         return None
     
-    if arquivoVazio('cliente/clientes.txt'):
+    if arquivoVazio('linguagem_python/cliente/clientes.txt'):
         st.warning("O arquivo está vazio")
         return None
     
@@ -75,7 +75,7 @@ def remover_cliente():
             if (int(cliente_id) > len(clientes)) or (int(cliente_id )<= 0) or (cliente_id == ""):
                 st.warning("ID inválido")
             else:
-                arquivo = open('cliente/clientes.txt', 'w', encoding= 'latin-1')
+                arquivo = open('linguagem_python/cliente/clientes.txt', 'w', encoding= 'latin-1')
                 
                 for index, cliente in enumerate(clientes):
                     if index + 1 != int(cliente_id):
@@ -125,7 +125,7 @@ def editar_cliente():
                 if len(documento_editado) != 11:
                     st.warning("CPF inválido!")
                 else:
-                    arquivo = open('cliente/clientes.txt', 'w', encoding= 'latin-1')
+                    arquivo = open('linguagem_python/cliente/clientes.txt', 'w', encoding= 'latin-1')
                 
                     for index, cliente in enumerate(clientes):
                         if index + 1 == int(cliente_id):
@@ -144,12 +144,12 @@ def buscar_cliente():
     Returns:
         None
     """
-    arquivo = open('cliente/clientes.txt', 'r', encoding= 'latin-1')
+    arquivo = open('linguagem_python/cliente/clientes.txt', 'r', encoding= 'latin-1')
     
     clientes = []
     st.header("Buscar cliente")
     
-    if arquivoVazio('cliente/clientes.txt'):
+    if arquivoVazio('linguagem_python/cliente/clientes.txt'):
         st.warning("O arquivo está vazio")
         return None
     
@@ -186,11 +186,11 @@ def total_clientes():
     Returns:
         int: Total de clientes cadastrados
     """
-    arquivo = open('cliente/clientes.txt', 'r', encoding= 'latin-1')
+    arquivo = open('linguagem_python/cliente/clientes.txt', 'r', encoding= 'latin-1')
     
     clientes = []
     
-    if arquivoVazio('cliente/clientes.txt'):
+    if arquivoVazio('linguagem_python/cliente/clientes.txt'):
         return 0
     
     for linha in arquivo:
