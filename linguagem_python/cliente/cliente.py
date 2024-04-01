@@ -45,7 +45,7 @@ class Cliente:
                     st.success("Cliente cadastrado com sucesso!")
         
     def verifica_documento(self, documento):
-        arquivo = open('cliente/clientes.txt', 'r')
+        arquivo = open('linguagem_python/cliente/clientes.txt', 'r')
     
         
         for linha in arquivo:
