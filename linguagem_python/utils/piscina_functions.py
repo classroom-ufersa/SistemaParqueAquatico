@@ -99,7 +99,7 @@ def adicionar_banhistas():
         else:
             existentes = [index[0] for index in piscinas]
             
-            if (str(identificacao) not in existentes) or (identificacao < 0) or (identificacao == ""):
+            if (str(identificacao) not in existentes) or (int(identificacao) < 0) or (identificacao == ""):
                 st.warning("ID inválido")
             else:
                 if total_banhistas < total_clientes():
@@ -144,7 +144,7 @@ def remover_banhista():
         else:
             existentes = [index[0] for index in piscinas]
             
-            if (str(identificacao) not in existentes) or (identificacao < 0) or (identificacao == ""):
+            if (str(identificacao) not in existentes) or (int(identificacao) < 0) or (identificacao == ""):
                 st.warning("ID inválido")
             else:
                 arquivo = open('piscina/piscinas.txt', 'w', encoding= 'latin-1')
