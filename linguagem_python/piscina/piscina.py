@@ -26,8 +26,8 @@ class Piscina():
             error = True
         
         if st.button("Adicionar"):
-            if error:
-                st.warning("Por favor insira um número inteiro")
+            if error or (capacidade < 0) or (profundidade < 0):
+                st.warning("Por favor insira informações válidas")
             else:
                 self.cria_identificacao()
                 self.salva_piscina()
