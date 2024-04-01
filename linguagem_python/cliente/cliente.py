@@ -63,7 +63,7 @@ class Cliente:
         return False
     
     def salva_cliente(self):
-        arquivo = open('cliente/clientes.txt', 'a', encoding= 'latin-1')
+        arquivo = open('linguagem_python/cliente/clientes.txt', 'a', encoding= 'latin-1')
         arquivo.write(f'{self.nome}\t{self.idade}\t{self.documento}\n')
         arquivo.close()
         
