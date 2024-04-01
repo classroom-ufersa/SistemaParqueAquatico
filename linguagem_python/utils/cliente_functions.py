@@ -118,6 +118,9 @@ def editar_cliente():
         else:
             if (int(cliente_id) > len(clientes)) or (int(cliente_id) <= 0) or (cliente_id == ""):
                 st.warning("ID inválido")
+            
+            elif (int(idade_editada) > 110) or (int(idade_editada) < 0):
+                st.warning("Idade inválida")
             else:
                 if len(documento_editado) != 11:
                     st.warning("CPF inválido!")
