@@ -6,8 +6,8 @@
 typedef struct cliente{
     char nome[50];
     int idade;
-    char documento[11];
-} Cliente;
+    char documento[15];
+} Cliente;  
 
 void adicionar_cliente(Cliente* cliente) {
     printf("Informe o nome do cliente: ");
@@ -32,6 +32,47 @@ void adicionar_cliente(Cliente* cliente) {
     printf("Cliente cadastrado com sucesso!\n");
 }
 
+// int compara_string(const void* a, const void* b) {
+//     return strcmp((char*)a, (char*)b);
+// }
+
+// void ordenar_clientes() {
+//     FILE* arquivo = fopen("clientes.txt", "r");
+//     FILE* arquivo_temp = fopen("clientes_temp.txt", "w");
+//     if (arquivo == NULL || arquivo_temp == NULL) {
+//         printf("Erro ao abrir o arquivo! Encerrando o programa...\n");
+//         exit(1);
+//     }
+
+//     char* lines[1000];
+//     char buffer[255];
+//     int numero_linhas = 0;
+
+//     while (fgets(buffer, 255, arquivo) != NULL && numero_linhas < 1000) {
+//         lines[numero_linhas] = strdup(buffer);
+//         numero_linhas++;
+//     }
+
+//     fclose(arquivo);
+
+//     qsort(lines, numero_linhas, sizeof(const char*), compara_string);
+
+//     arquivo = fopen("clientes.txt", "w");
+//     if (arquivo == NULL) {
+//         printf("Erro ao abrir o arquivo! Encerrando o programa...\n");
+//         exit(1);
+//     }
+
+//     for (int index = 0; index < numero_linhas; index++) {
+//         fprintf(arquivo, "%s", lines[index]);
+//         free(lines[index]);
+//     }
+
+//     fclose(arquivo);
+
+//     printf("Clientes ordenados com sucesso!\n");
+// }
+
 void listar_clientes() {
     FILE* arquivo = fopen("clientes.txt", "r");
     if (arquivo == NULL) {
@@ -50,28 +91,23 @@ void listar_clientes() {
 void remover_cliente(Cliente* cliente) {
     listar_clientes();
     
-    char documento[11];
+    char documento_aux[11];
 
     printf("Informe o documento do cliente que deseja remover: ");
-    scanf("%s", documento);
+    scanf("%s", documento_aux);
 
     FILE* arquivo = fopen("clientes.txt", "r");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo! Encerrando o programa...\n");
-        exit(1);
-    }
-
     FILE* arquivo_temp = fopen("clientes_temp.txt", "w");
-    if (arquivo_temp == NULL) {
+    if (arquivo == NULL || arquivo_temp == NULL) {
         printf("Erro ao abrir o arquivo! Encerrando o programa...\n");
         exit(1);
     }
 
     char linha[255];
     while (fgets(linha, 255, arquivo) != NULL) {
-        char documento_cliente[11];
-        sscanf(linha, "%*s\t%*d\t%s", documento_cliente);
-        if (strcmp(documento_cliente, documento) != 0) {
+        char documento[11];
+        sscanf(linha, "%s\t%*d\t%*s", documento);
+        if (strcmp(documento, documento_aux) != 0) {
             fprintf(arquivo_temp, "%s", linha);
         }
     }
@@ -91,9 +127,11 @@ int main() {
     
     // adicionar_cliente(&cliente_user);
     
+    // ao chamar a função remover será listado os clientes cadastrados
     remover_cliente(&cliente_user);
-
     listar_clientes();
+
+    // ordenar_clientes();
 
     return 0;
 }
