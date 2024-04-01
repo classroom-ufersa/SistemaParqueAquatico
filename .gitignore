@@ -1,5 +1,10 @@
 # Prerequisites
 *.d
+.vscode
+
+# Python files
+venv
+__pycache__
 
 # VS Code
 .vscode
