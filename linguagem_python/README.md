@@ -30,29 +30,25 @@ Esta pasta contém o sistema do Parque Aquático em Python utilizando a bibliote
     📁
     │
     ├── linguagem_python
-    │   ├── .streamlit
-    │   │   └── config.toml
-    │   ├── cliente
-    │   │   ├── __init__.py
-    │   │   ├── cliente.py
-    │   │   └── cliente.txt
-    │   ├── piscina
-    │   │   ├── __init__.py
-    │   │   ├── piscina.py
-    │   │   └── piscina.txt
-    │   ├── utils
-    │   │   ├── __init__.py
-    │   │   ├── cliente_functions.py
-    │   │   ├── piscina_functions.py
-    │   │   ├── utils.py
-    │   │   └── validations.py
-    │   ├── logo.png
-    │   ├── main.py
-    │   ├── README.md
-    │   └── requirements.txt
-    ├── .gitignore
-    └── README.md
-
+    │   ├── root
+    │   │   ├── .streamlit
+    │   │   │   ├── config.toml
+    │   │   ├── cliente
+    │   │   │   ├── cliente.py
+    │   │   │   ├── cliente.txt
+    │   │   ├── piscina
+    │   │   │   ├── piscina.py
+    │   │   │   ├── piscina.txt
+    │   │   ├── utils
+    │   │   │   ├── cliente_functions.py
+    │   │   │   ├── piscina_functions.py
+    │   │   │   ├── utils.py
+    │   │   │   ├── validations.py
+    │   │   ├── logo.png
+    │   │   ├── main.py
+    │   │   ├── requirements.txt
+    │   └── README.md
+    └── ...
 ```
 
 - ```streamlit```: é uma biblioteca que permite criar interfaces gráficas para aplicações em Python. O arquivo `config.toml` contém as configurações do streamlit.
