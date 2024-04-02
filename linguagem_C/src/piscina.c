@@ -60,9 +60,7 @@ void listar_piscinas() {
 }
 
 void remover_piscina(Piscina* piscina) {
-    printf("----------------------------------------------------------------------\n");
     listar_piscinas();
-    printf("----------------------------------------------------------------------\n");
 
     int id_aux;
     printf("Informe o ID da piscina que deseja remover: ");
