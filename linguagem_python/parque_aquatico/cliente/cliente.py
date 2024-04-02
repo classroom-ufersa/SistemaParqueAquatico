@@ -1,4 +1,5 @@
 import streamlit as st
+from utils.validations import validString
 
 class Cliente:
     def __init__(self):
@@ -29,24 +30,21 @@ class Cliente:
         
         if st.button("Adicionar"):
             if error or (idade>110) or (idade < 0):
-                print(type(idade))
-                print(idade)
                 st.warning("Por favor insira informações válidas")
             else:
-                print(self.documento)
                 if len((self.documento)) != 11:
                     st.warning("CPF inválido!")
                 elif self.verifica_documento(self.documento):
                     st.warning("Cliente já cadastrado!")
-                elif self.nome.isalpha() == False:
+                elif validString(self.nome) == False:
                     st.warning("Nome inválido!")
                 else:
                     self.salva_cliente()
                     st.success("Cliente cadastrado com sucesso!")
         
     def verifica_documento(self, documento):
-        arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'r')
-    
+        arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'r', encoding='latin-1')
+        
         
         for linha in arquivo:
             cliente = linha.split('\t')

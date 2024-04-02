@@ -135,28 +135,24 @@ def editar_cliente():
                         st.warning("CPF inválido!")
                         return False
                     else:
-                        arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'r', encoding= 'latin-1')
-                        for linha in arquivo:
-                            cliente = linha.split('\t')
-                            if len(cliente) == 3:
-                                cliente[2] = cliente[2].replace('\n', '')
-                                if cliente[2] == documento_editado:
-                                    st.warning("CPF já cadastrado!")
-                                    return False
-                        arquivo.close()
-                else:
-                    arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'w', encoding= 'latin-1')
-                
-                    for index, cliente in enumerate(clientes):
-                        if index + 1 == int(cliente_id):
-                            arquivo.write(f'{nome_editado}\t{idade_editada}\t{documento_editado}\n')
-                            st.success("Cliente editado com sucesso!")
-                        else:
-                            arquivo.write(f'{cliente[0]}\t{cliente[1]}\t{cliente[2]}\n')
+                        for cliente in clientes:
+                            if documento_editado == cliente[2].strip('\n'):
+                                st.warning("CPF já cadastrado!")
+                                return False
                     
-                    arquivo.close()
-                    sleep(0.5)
-                    st.rerun()
+
+                arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'w', encoding= 'latin-1')
+            
+                for index, cliente in enumerate(clientes):
+                    if index + 1 == int(cliente_id):
+                        arquivo.write(f'{nome_editado}\t{idade_editada}\t{documento_editado}\n')
+                        st.success("Cliente editado com sucesso!")
+                    else:
+                        arquivo.write(f'{cliente[0]}\t{cliente[1]}\t{cliente[2]}\n')
+                
+                arquivo.close()
+                sleep(0.5)
+                st.rerun()
 
 def buscar_cliente():
     """ Busca um cliente pelo nome no arquivo clientes.txt

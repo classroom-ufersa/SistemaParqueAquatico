@@ -25,7 +25,8 @@ def validString(item):
         bool: Retorna True se a string é composta apenas por letras e False caso contrário
     """
     
-    return item.isalpha()
+    string = item.replace(' ', '')
+    return string.isalpha()
 
 def arquivoVazio(arquivo):
     """ Função que verifica se um arquivo está vazio
