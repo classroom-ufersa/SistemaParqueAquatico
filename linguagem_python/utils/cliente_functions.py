@@ -101,10 +101,6 @@ def editar_cliente():
         st.warning("Não há clientes cadastrados")
         return None
     
-    if clientes:
-        st.warning("Não há clientes cadastrados")
-        return None
-    
     cliente_id = st.text_input("Digite o ID do cliente que deseja editar:", value='0')
     nome_editado = st.text_input("Nome:", value="")
     idade_editada = st.text_input("Idade:", value="")
@@ -122,6 +118,9 @@ def editar_cliente():
         else:
             if (int(cliente_id) > len(clientes)) or (int(cliente_id) <= 0) or (cliente_id == ""):
                 st.warning("ID inválido")
+            
+            elif (int(idade_editada) > 110) or (int(idade_editada) < 0):
+                st.warning("Idade inválida")
             else:
                 if len(documento_editado) != 11:
                     st.warning("CPF inválido!")
@@ -167,13 +166,19 @@ def buscar_cliente():
         if nome == "":
             st.warning("Por favor insira um nome")
         else:
+            resultado = False
             for cliente in clientes:
                 if nome.lower() in cliente[0].lower():
                     st.success(f'Cliente encontrado: {cliente[0]}, {cliente[1]} anos, CPF: {cliente[2]}')
-                    return True
-                arquivo.close()
-            st.warning("Cliente não encontrado")
-            return False
+                    resultado = True
+            
+            arquivo.close()
+            
+            if resultado == True:
+                return True
+            else:    
+                st.warning("Cliente não encontrado")
+                return False
 
 def total_clientes():
     """ Retorna o total de clientes cadastrados no arquivo clientes.txt

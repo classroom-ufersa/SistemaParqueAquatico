@@ -25,16 +25,21 @@ class Cliente:
             error = False
         except ValueError:
             error = True
+            
         
         if st.button("Adicionar"):
-            if error:
-                st.warning("Por favor insira um número inteiro")
+            if error or (idade>110) or (idade < 0):
+                print(type(idade))
+                print(idade)
+                st.warning("Por favor insira informações válidas")
             else:
                 print(self.documento)
                 if len((self.documento)) != 11:
                     st.warning("CPF inválido!")
                 elif self.verifica_documento(self.documento):
                     st.warning("Cliente já cadastrado!")
+                elif self.nome.isalpha() == False:
+                    st.warning("Nome inválido!")
                 else:
                     self.salva_cliente()
                     st.success("Cliente cadastrado com sucesso!")
