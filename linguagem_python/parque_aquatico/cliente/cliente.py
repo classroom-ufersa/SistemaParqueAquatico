@@ -45,7 +45,7 @@ class Cliente:
                     st.success("Cliente cadastrado com sucesso!")
         
     def verifica_documento(self, documento):
-        arquivo = open('linguagem_python/cliente/clientes.txt', 'r')
+        arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'r')
     
         
         for linha in arquivo:
@@ -63,7 +63,7 @@ class Cliente:
         return False
     
     def salva_cliente(self):
-        arquivo = open('linguagem_python/cliente/clientes.txt', 'a', encoding= 'latin-1')
+        arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'a', encoding= 'latin-1')
         arquivo.write(f'{self.nome}\t{self.idade}\t{self.documento}\n')
         arquivo.close()
         

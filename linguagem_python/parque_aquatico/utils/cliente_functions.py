@@ -12,16 +12,14 @@ def listar_clientes():
         clientes (list): Lista com os clientes cadastrados
         None: Retorna None caso o arquivo esteja vazio
     """
-    arquivo = open('linguagem_python/cliente/clientes.txt', 'r', encoding= 'latin-1')
+    
+    ordena_clientes()
+    arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'r', encoding= 'latin-1')
     
     clientes = []
     st.header("Clientes cadastrados")
     
-    if arquivoVazio('linguagem_python/cliente/clientes.txt'):
-        st.warning("O arquivo está vazio")
-        return None
-    
-    if arquivoVazio('linguagem_python/cliente/clientes.txt'):
+    if arquivoVazio('linguagem_python/parque_aquatico/cliente/clientes.txt'):
         st.warning("O arquivo está vazio")
         return None
     
@@ -56,6 +54,7 @@ def remover_cliente():
         None
     
     """
+    
     clientes = listar_clientes()
     
     st.header("Remover cliente")
@@ -75,7 +74,7 @@ def remover_cliente():
             if (int(cliente_id) > len(clientes)) or (int(cliente_id )<= 0) or (cliente_id == ""):
                 st.warning("ID inválido")
             else:
-                arquivo = open('linguagem_python/cliente/clientes.txt', 'w', encoding= 'latin-1')
+                arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'w', encoding= 'latin-1')
                 
                 for index, cliente in enumerate(clientes):
                     if index + 1 != int(cliente_id):
@@ -112,6 +111,15 @@ def editar_cliente():
     
     validations = [validInteger(cliente_id), validString(nome_editado), validInteger(idade_editada), validInteger(documento_editado)]
     
+    for cliente in clientes:
+        if int(cliente_id) == clientes.index(cliente) + 1:
+            cpf_antigo = cliente[2].strip('\n')
+    
+    if str(documento_editado) == str(cpf_antigo):
+        editado = False
+    else:
+        editado = True
+    
     if st.button("Editar cliente"):
         if (False in validations):
             st.warning("Por favor insira Informações válidas")
@@ -122,10 +130,22 @@ def editar_cliente():
             elif (int(idade_editada) > 110) or (int(idade_editada) < 0):
                 st.warning("Idade inválida")
             else:
-                if len(documento_editado) != 11:
-                    st.warning("CPF inválido!")
+                if editado == True:
+                    if len(documento_editado) != 11:
+                        st.warning("CPF inválido!")
+                        return False
+                    else:
+                        arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'r', encoding= 'latin-1')
+                        for linha in arquivo:
+                            cliente = linha.split('\t')
+                            if len(cliente) == 3:
+                                cliente[2] = cliente[2].replace('\n', '')
+                                if cliente[2] == documento_editado:
+                                    st.warning("CPF já cadastrado!")
+                                    return False
+                        arquivo.close()
                 else:
-                    arquivo = open('linguagem_python/cliente/clientes.txt', 'w', encoding= 'latin-1')
+                    arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'w', encoding= 'latin-1')
                 
                     for index, cliente in enumerate(clientes):
                         if index + 1 == int(cliente_id):
@@ -144,12 +164,12 @@ def buscar_cliente():
     Returns:
         None
     """
-    arquivo = open('linguagem_python/cliente/clientes.txt', 'r', encoding= 'latin-1')
+    arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'r', encoding= 'latin-1')
     
     clientes = []
     st.header("Buscar cliente")
     
-    if arquivoVazio('linguagem_python/cliente/clientes.txt'):
+    if arquivoVazio('linguagem_python/parque_aquatico/cliente/clientes.txt'):
         st.warning("O arquivo está vazio")
         return None
     
@@ -186,11 +206,11 @@ def total_clientes():
     Returns:
         int: Total de clientes cadastrados
     """
-    arquivo = open('linguagem_python/cliente/clientes.txt', 'r', encoding= 'latin-1')
+    arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'r', encoding= 'latin-1')
     
     clientes = []
     
-    if arquivoVazio('linguagem_python/cliente/clientes.txt'):
+    if arquivoVazio('linguagem_python/parque_aquatico/cliente/clientes.txt'):
         return 0
     
     for linha in arquivo:
@@ -201,3 +221,35 @@ def total_clientes():
     
     arquivo.close()
     return len(clientes)
+
+def ordena_clientes():
+    """ Ordena os clientes cadastrados no arquivo clientes.txt por ordem alfabética e reescreve o arquivo 
+    
+    Returns:
+        None
+    """
+    
+    arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'r', encoding= 'latin-1')
+    
+    clientes = []
+    
+    if arquivoVazio('linguagem_python/parque_aquatico/cliente/clientes.txt'):
+        return None
+    
+    for linha in arquivo:
+        cliente = linha.split('\t')
+        
+        if len(cliente) == 3:
+            cliente[2] = cliente[2].replace('\n', '')
+            clientes.append(cliente)
+    
+    arquivo.close()
+    
+    clientes.sort(key=lambda x: x[0])
+    
+    arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'w', encoding= 'latin-1')
+    
+    for cliente in clientes:
+        arquivo.write(f'{cliente[0]}\t{cliente[1]}\t{cliente[2]}\n')
+    
+    arquivo.close()

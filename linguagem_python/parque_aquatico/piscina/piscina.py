@@ -34,7 +34,7 @@ class Piscina():
                 st.success("Piscina cadastrada com sucesso!")
     
     def cria_identificacao(self):
-        arquivo = open('linguagem_python/piscina/piscinas.txt', 'r', encoding='latin-1')
+        arquivo = open('linguagem_python/parque_aquatico/piscina/piscinas.txt', 'r', encoding='latin-1')
         index = 0
         for linha in arquivo:
             piscina = linha.split('\t')
@@ -46,7 +46,7 @@ class Piscina():
         arquivo.close()
     
     def salva_piscina(self):
-        arquivo = open('linguagem_python/piscina/piscinas.txt', 'a', encoding= 'latin-1')
+        arquivo = open('linguagem_python/parque_aquatico/piscina/piscinas.txt', 'a', encoding= 'latin-1')
         self.clientes = 0
         arquivo.write(f'{self.identificacao}\t{self.capacidade}\t{self.profundidade}\t{self.clientes}\n')
         arquivo.close()
