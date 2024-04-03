@@ -48,6 +48,8 @@ Aqui estão as funcionalidades disponíveis:
 ```
     📁
     │
+    ├── .streamlit
+    │   └── config.toml
     ├── linguagem_python
     │   ├── root
     │   │   ├── .streamlit
