@@ -114,6 +114,8 @@ def editar_cliente():
     for cliente in clientes:
         if int(cliente_id) == clientes.index(cliente) + 1:
             cpf_antigo = cliente[2].strip('\n')
+        else: 
+            cpf_antigo = None
     
     if str(documento_editado) == str(cpf_antigo):
         editado = False
@@ -145,7 +147,7 @@ def editar_cliente():
             
                 for index, cliente in enumerate(clientes):
                     if index + 1 == int(cliente_id):
-                        arquivo.write(f'{nome_editado}\t{idade_editada}\t{documento_editado}\n')
+                        arquivo.write(f'{nome_editado.title()}\t{idade_editada}\t{documento_editado}\n')
                         st.success("Cliente editado com sucesso!")
                     else:
                         arquivo.write(f'{cliente[0]}\t{cliente[1]}\t{cliente[2]}\n')
