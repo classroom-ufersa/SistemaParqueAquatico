@@ -73,7 +73,7 @@ Aqui estão as funcionalidades disponíveis:
     └── ...
 ```
 
-- ```streamlit```: é uma biblioteca que permite criar interfaces gráficas para aplicações em Python. O arquivo `config.toml` contém as configurações do streamlit.
+- ```.streamlit```: é uma biblioteca que permite criar interfaces gráficas para aplicações em Python. O arquivo `config.toml` contém as configurações do streamlit.
 - ```cliente```: contém o arquivo `cliente.py` que possui a classe Cliente e o arquivo `cliente.txt` que armazena os dados dos clientes.
 - ```piscina```: contém o arquivo `piscina.py` que possui a classe Piscina e o arquivo `piscina.txt` que armazena os dados das piscinas.
 - ```utils```: contém os arquivos `cliente_functions.py`, `piscina_functions.py`, `utils.py` e `validations.py` que possuem funções auxiliares para o sistema.
