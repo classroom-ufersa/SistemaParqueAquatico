@@ -1,4 +1,7 @@
-#include "../include/cliente.h"
+// #include "../include/cliente.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct cliente{
     int id;
@@ -14,6 +17,10 @@ typedef struct lista_clientes {
 
 ListaClientes* cria_lista_clientes() {
     return NULL;
+}
+
+int lista_vazia(ListaClientes* lista) {
+    return lista == NULL;
 }
 
 ListaClientes* insere_elemento_clientes(ListaClientes* lista, Cliente* cliente) {
@@ -178,23 +185,43 @@ void editar_cliente(ListaClientes* lista) {
     printf("Cliente com ID %d não encontrado.\n", id);
 }
 
-// int main() {
-//     ListaClientes* lista = listar_clientes();
+void atualiza_arquivo(ListaClientes* lista) {
+    FILE* arquivo = fopen("clientes.txt", "w");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo! Encerrando o programa...\n");
+        exit(1);
+    }
 
-//     // for (int i = 0; i < 5; i++) {
-//     //     adicionar_cliente(&lista);
-//     // }
+    ListaClientes* atual = lista;
+    while (atual != NULL) {
+        fprintf(arquivo, "%d %s %d %s\n", atual->cliente->id, atual->cliente->nome, atual->cliente->idade, atual->cliente->documento);
+        
+        atual = atual->prox_elemento;
+    }
 
-//     // remover_cliente(&lista);
-//     // buscar_cliente(lista);
-//     editar_cliente(lista);
-//     imprime_lista(lista);
+    fclose(arquivo);
+}
 
-//     while (lista != NULL) {
-//         ListaClientes* prox_elemento = lista->prox_elemento;
-//         free(lista);
-//         lista = prox_elemento;
-//     }
+int main() {
+    ListaClientes* lista = listar_clientes();
 
-//     return 0;
-// }
+        lista_vazia(lista) ? printf("Lista vazia\n") :
+
+    // for (int i = 0; i < 5; i++) {
+    //     adicionar_cliente(&lista);
+    // }
+
+    // remover_cliente(&lista);
+    // buscar_cliente(lista);
+    // editar_cliente(lista);
+
+    imprime_lista(lista);
+
+    while (lista != NULL) {
+        ListaClientes* prox_elemento = lista->prox_elemento;
+        free(lista);
+        lista = prox_elemento;
+    }
+
+    return 0;
+}
