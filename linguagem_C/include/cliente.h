@@ -34,3 +34,6 @@ void buscar_cliente(ListaClientes* lista);
 
 /* Função que edita as informações dos clientes cadastrados */
 void editar_cliente(ListaClientes* lista);
+
+/* Função que atualiza as informações no arquivo clientes.txt */
+void atualiza_arquivo(ListaClientes* lista);
