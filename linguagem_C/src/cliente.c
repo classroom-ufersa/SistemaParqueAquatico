@@ -1,25 +1,25 @@
-// #include "../include/cliente.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../include/cliente.h"
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
 
-typedef struct cliente{
+struct cliente{
     int id;
     int idade;
     char nome[50];
     char documento[15];
-} Cliente;
+};
 
-typedef struct lista_clientes {
+struct lista_clientes {
     Cliente* cliente;
     struct lista_clientes* prox_elemento;
-} ListaClientes;
+};
 
 ListaClientes* cria_lista_clientes() {
     return NULL;
 }
 
-int lista_vazia(ListaClientes* lista) {
+int lista_vazia_clientes(ListaClientes* lista) {
     return lista == NULL;
 }
 
@@ -143,7 +143,7 @@ void remover_cliente(ListaClientes** lista) {
     imprime_lista(*lista);
 }
 
-void buscar_cliente(ListaClientes* lista) {
+Cliente* buscar_cliente(ListaClientes* lista) {
     char nome[50];
     printf("Informe o nome do cliente que deseja buscar: ");
     scanf(" %99[^\n]", nome);
@@ -151,14 +151,21 @@ void buscar_cliente(ListaClientes* lista) {
     ListaClientes* elemento_atual = lista;
     while (elemento_atual != NULL) {
         if (strcmp(elemento_atual->cliente->nome, nome) == 0) {
-            printf("CLIENTE %d\n", elemento_atual->cliente->id);
-            printf("Nome: %s\n", elemento_atual->cliente->nome);
-            printf("Idade: %d\n", elemento_atual->cliente->idade);
-            printf("Documento: %s\n\n", elemento_atual->cliente->documento);
+            // printf("CLIENTE %d\n", elemento_atual->cliente->id);
+            // printf("Nome: %s\n", elemento_atual->cliente->nome);
+            // printf("Idade: %d\n", elemento_atual->cliente->idade);
+            // printf("Documento: %s\n\n", elemento_atual->cliente->documento);
+            return elemento_atual->cliente;
         }
         
         elemento_atual = elemento_atual->prox_elemento;
     }
+
+    if (elemento_atual == NULL) {
+        printf("Cliente nao encontrado!\n");
+        return NULL;
+    }
+    
 }
 
 void editar_cliente(ListaClientes* lista) {
@@ -185,7 +192,7 @@ void editar_cliente(ListaClientes* lista) {
     printf("Cliente com ID %d não encontrado.\n", id);
 }
 
-void atualiza_arquivo(ListaClientes* lista) {
+void atualiza_arquivo_clientes(ListaClientes* lista) {
     FILE* arquivo = fopen("clientes.txt", "w");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo! Encerrando o programa...\n");
@@ -194,7 +201,7 @@ void atualiza_arquivo(ListaClientes* lista) {
 
     ListaClientes* atual = lista;
     while (atual != NULL) {
-        fprintf(arquivo, "%d %s %d %s\n", atual->cliente->id, atual->cliente->nome, atual->cliente->idade, atual->cliente->documento);
+        fprintf(arquivo, "%d\t%st%d\t%s\n", atual->cliente->id, atual->cliente->nome, atual->cliente->idade, atual->cliente->documento);
         
         atual = atual->prox_elemento;
     }
@@ -202,10 +209,10 @@ void atualiza_arquivo(ListaClientes* lista) {
     fclose(arquivo);
 }
 
-int main() {
-    ListaClientes* lista = listar_clientes();
+// int main() {
+//     ListaClientes* lista = listar_clientes();
 
-        lista_vazia(lista) ? printf("Lista vazia\n") :
+//         lista_vazia(lista) ? printf("Lista vazia\n") :
 
     // for (int i = 0; i < 5; i++) {
     //     adicionar_cliente(&lista);
@@ -215,13 +222,13 @@ int main() {
     // buscar_cliente(lista);
     // editar_cliente(lista);
 
-    imprime_lista(lista);
+//     imprime_lista(lista);
 
-    while (lista != NULL) {
-        ListaClientes* prox_elemento = lista->prox_elemento;
-        free(lista);
-        lista = prox_elemento;
-    }
+//     while (lista != NULL) {
+//         ListaClientes* prox_elemento = lista->prox_elemento;
+//         free(lista);
+//         lista = prox_elemento;
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
