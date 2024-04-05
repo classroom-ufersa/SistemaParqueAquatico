@@ -11,6 +11,9 @@ typedef struct lista_clientes ListaClientes;
 /* Função que cria uma lista estruturada */
 ListaClientes* cria_lista_clientes();
 
+/* Função que verifica se a lista de clientes está vazia */
+int lista_vazia_clientes(ListaClientes* lista);
+
 /* Função que insere um elemento na lista de clientes */
 ListaClientes* insere_elemento_clientes(ListaClientes* lista, Cliente* cliente);
 
@@ -30,7 +33,7 @@ void adicionar_cliente(ListaClientes** lista);
 void remover_cliente(ListaClientes** lista);
 
 /* Função que busca um cliente por nome */
-void buscar_cliente(ListaClientes* lista);
+Cliente* buscar_cliente(ListaClientes* lista);
 
 /* Função que edita as informações dos clientes cadastrados */
 void editar_cliente(ListaClientes* lista);
