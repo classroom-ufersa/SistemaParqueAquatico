@@ -98,7 +98,6 @@ Com o Python instalado, você pode instalar as bibliotecas necessárias para exe
 python -m venv venv
 ```
 
-
 - Depois, abra o terminal e navegue até a pasta do projeto:
 
 ```bash
@@ -115,14 +114,7 @@ pip install -r requirements.txt
 
 Com todos os requisitos instalados, você pode executar o sistema. Para isso, execute o comando abaixo:
 
-- Entre na pasta do projeto:
-
 ```bash
-cd linguagem_python/parque_aquatico
+streamlit run linguagem_python/parque_aquatico/main.py
 ```
-
-- Depois, execute o comando abaixo:
-
-```bash
-streamlit run main.py
-```
+##### Garanta que você está na pasta raiz do projeto ao executar o comando acima.
