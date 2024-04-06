@@ -51,9 +51,7 @@ Aqui estão as funcionalidades disponíveis:
     ├── .streamlit
     │   └── config.toml
     ├── linguagem_python
-    │   ├── root
-    │   │   ├── .streamlit
-    │   │   │   ├── config.toml
+    │   ├── parque_aquatico
     │   │   ├── cliente
     │   │   │   ├── cliente.py
     │   │   │   ├── cliente.txt
