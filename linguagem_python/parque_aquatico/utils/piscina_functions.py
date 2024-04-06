@@ -28,7 +28,7 @@ def listar_piscinas():
     profundidade = [piscinas[2] for piscinas in piscinas]
     clientes = [piscinas[3] for piscinas in piscinas]
 
-    data = {'Identificação': identificacao, 'Capacidade': capacidade, 'Profundidade': profundidade, 'Clientes': clientes}
+    data = {'Identificação': identificacao, 'Capacidade Máxima de Pessoas': capacidade, 'Profundidade': profundidade, 'Clientes': clientes}
     
     df = pd.DataFrame(data)
     

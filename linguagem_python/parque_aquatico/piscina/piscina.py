@@ -11,7 +11,7 @@ class Piscina():
         return f'Identificação: {self.identificacao}, Capacidade: {self.capacidade}, Profundidade: {self.profundidade}, Clientes: {self.clientes}'
     
     def adiciona_piscina(self):
-        self.capacidade = st.text_input("Capacidade:")
+        self.capacidade = st.text_input("Capacidade Máxima de Pessoas:")
         self.profundidade = st.text_input("Profundidade:")
         
         if '' in [self.capacidade, self.profundidade]:
