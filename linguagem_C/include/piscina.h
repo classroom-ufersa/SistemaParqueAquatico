@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "cliente.h"
 
 /* Definição do tipo estururado Piscina */
 typedef struct piscina Piscina;
@@ -38,7 +39,7 @@ void remover_piscina(ListaPiscinas** lista);
 Piscina* buscar_piscina(ListaPiscinas* lista);
 
 /* Função que adicona um cliente a uma piscina */
-void adiciona_cliente_a_piscina(ListaPiscinas* lista_piscinas, ListaTodosClientes* lista_clientes);
+void adiciona_cliente_a_piscina(ListaPiscinas* lista_piscinas, ListaClientes* lista_clientes);
 
 /* Função que atualiza o arquivo piscinas.txt ao final da execução do programa */
 void atualiza_arquivo_piscinas(ListaPiscinas* lista);

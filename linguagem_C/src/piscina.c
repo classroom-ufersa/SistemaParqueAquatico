@@ -176,7 +176,7 @@ Piscina* buscar_piscina(ListaPiscinas* lista) {
     return elemento_atual->piscina;
 }
 
-void adiciona_cliente_a_piscina(ListaPiscinas* lista_piscinas, ListaTodosClientes* lista_clientes) {
+void adiciona_cliente_a_piscina(ListaPiscinas* lista_piscinas, ListaClientes* lista_clientes) {
 
     Piscina* piscina = buscar_piscina(lista_piscinas);
     Cliente* cliente = buscar_cliente(lista_clientes);
