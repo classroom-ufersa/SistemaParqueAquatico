@@ -1,4 +1,5 @@
 import streamlit as st
+from utils.validations import validInteger
 
 class Piscina():
     def __init__(self):
@@ -18,12 +19,12 @@ class Piscina():
             st.warning("Por favor, preencha todos os campos")
             return False
         
-        try:
+        if validInteger(self.capacidade) == False or validInteger(self.profundidade) == False:
+            error = True
+        else:
+            error = False
             capacidade = int(self.capacidade)
             profundidade = int(self.profundidade)
-            error = False
-        except ValueError:
-            error = True
         
         if st.button("Adicionar"):
             if error or (capacidade < 0) or (profundidade < 0):

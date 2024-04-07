@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.validations import validString
+from utils.validations import validString, validInteger
 
 class Cliente:
     def __init__(self):
@@ -20,13 +20,11 @@ class Cliente:
             st.warning("Por favor preencha todos os campos")
             return False
         
-        try:
-            idade = int(self.idade)
-            documento = int(self.documento)
-            error = False
-        except ValueError:
+        if validInteger(self.idade) == False or validInteger(self.documento) == False:
             error = True
-            
+        else:
+            error = False
+            idade = int(self.idade)
         
         if st.button("Adicionar"):
             if error or (idade>110) or (idade < 0):
