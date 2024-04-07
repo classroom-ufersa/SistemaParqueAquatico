@@ -53,14 +53,14 @@ class Cliente:
             cliente[2] = cliente[2].replace('\n', '')
             
             if cliente[2] == f"{documento}":
-                print('Cliente já cadastrado!')
+                arquivo.close()
                 return True
             
+        arquivo.close()
         return False
     
     def salva_cliente(self):
         arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'a', encoding= 'latin-1')
         arquivo.write(f'{self.nome}\t{self.idade}\t{self.documento}\n')
         arquivo.close()
-        
-        print('Cliente cadastrado com sucesso!')
+

@@ -90,6 +90,7 @@ def editar_cliente():
 
     Returns:
         Boolean: Retorna False caso haja erro na edição.
+        None: Retorna None caso o arquivo esteja vazio
     """
     
     clientes = listar_clientes()
@@ -161,6 +162,7 @@ def buscar_cliente():
 
     Returns:
         None
+        Boolean: Retorna True caso o cliente seja encontrado, False caso contrário
     """
     arquivo = open('linguagem_python/parque_aquatico/cliente/clientes.txt', 'r', encoding= 'latin-1')
     

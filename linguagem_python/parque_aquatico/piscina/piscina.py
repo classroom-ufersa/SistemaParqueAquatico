@@ -6,7 +6,7 @@ class Piscina():
         self.identificacao = ''
         self.capacidade = ''
         self.profundidade = ''
-        self.clientes = '' # duvida se os clientes são uma lista dos clientes que estão na piscina ou se são o número de clientes que estão na piscina
+        self.clientes = '' 
         
     def __str__(self):
         return f'Identificação: {self.identificacao}, Capacidade: {self.capacidade}, Profundidade: {self.profundidade}, Clientes: {self.clientes}'
