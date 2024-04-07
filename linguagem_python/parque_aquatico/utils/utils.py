@@ -10,6 +10,8 @@ from .piscina_functions import remover_piscina, adicionar_banhistas, listar_pisc
 def main():
     """ Função principal que exibe o menu de opções para o usuário
     """
+    st.set_page_config(page_title="Gerenciamento Parque Aquático", 
+                       page_icon="linguagem_python/parque_aquatico/logo.png")
     
     st.markdown("""
                 <style>
@@ -19,6 +21,7 @@ def main():
                 }
                 </style>
                 """, unsafe_allow_html=True)
+    
     
     st.sidebar.title("Gerenciamento Parque Aquático")
     
