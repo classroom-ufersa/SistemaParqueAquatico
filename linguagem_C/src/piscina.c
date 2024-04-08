@@ -1,24 +1,15 @@
 #include "../include/piscina.h"
-#include "../include/cliente.h"
-// #include <stdio.h>
-// #include <stdlib.h>
 
-struct piscina { 
+struct piscina {
     int id;
     int capacidade_max;
     float profundidade;
-    int num_clientes;
-    ListaClientes* clientes;
+    int clientes;
 };
 
 struct lista_piscinas {
     Piscina* piscina;
     struct lista_piscinas* prox_elemento;
-};
-
-struct lista_todos_clientes {
-    Cliente* cliente;
-    struct lista_todos_clientes* prox_elemento;
 };
 
 ListaPiscinas* cria_lista_piscinas() {
@@ -39,22 +30,21 @@ ListaPiscinas* insere_elemento_piscinas(ListaPiscinas* lista, Piscina* piscina) 
     novo_elemento->piscina = piscina;
     novo_elemento->prox_elemento = lista;
 
-    
     return novo_elemento;
 }
 
 ListaPiscinas* listar_piscinas() {
     ListaPiscinas* lista = cria_lista_piscinas();
-    
-    FILE* arquivo = fopen("piscinas.txt", "r");
+
+    FILE* arquivo = fopen("../resources/piscinas.txt", "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo! Encerrando o programa...\n");
         exit(1);
     }
 
-    int id, capacidade_max, num_clientes;
+    int id, capacidade_max, clientes;
     float profundidade;
-    while (fscanf(arquivo, "%d\t%d\t%f\t%d\n", &id, &capacidade_max, &profundidade, &num_clientes) == 4) {
+    while (fscanf(arquivo, "%d\t%d\t%f\t%d\n", &id, &capacidade_max, &profundidade, &clientes) == 4) {
         Piscina* piscina = malloc(sizeof(Piscina));
         if (piscina == NULL) {
             printf("Erro ao alocar memoria! Encerrando o programa...\n");
@@ -63,25 +53,31 @@ ListaPiscinas* listar_piscinas() {
         piscina->id = id;
         piscina->capacidade_max = capacidade_max;
         piscina->profundidade = profundidade;
-        piscina->num_clientes = num_clientes;
+        piscina->clientes = clientes;
 
         lista = insere_elemento_piscinas(lista, piscina);
     }
 
     fclose(arquivo);
-    
+
+    if (lista_vazia_piscinas(lista) == 1) {
+        printf("Nenhuma piscina cadastrada!\n");
+    } else {
+        printf("Piscinas carregadas com sucesso!\n");
+    }
+
     return lista;
 }
 
 void imprime_lista_piscinas(ListaPiscinas* lista) {
     ListaPiscinas* elemento_atual = lista;
-    
+
     while (elemento_atual != NULL) {
-        printf("PISCINA %d\n", elemento_atual->piscina->id);
+        printf("PISCINA %03d\n", elemento_atual->piscina->id);
         printf("Capacidade maxima: %d\n", elemento_atual->piscina->capacidade_max);
         printf("Profundidade: %.2f\n", elemento_atual->piscina->profundidade);
-        printf("Clientes: %d\n\n", elemento_atual->piscina->num_clientes);
-        
+        printf("Clientes: %d\n\n", elemento_atual->piscina->clientes);
+
         elemento_atual = elemento_atual->prox_elemento;
     }
 }
@@ -98,7 +94,18 @@ int total_piscinas(ListaPiscinas* lista) {
     return total_piscinas;    
 }
 
-void adiconar_piscina(ListaPiscinas** lista) {
+int verifica_id_piscinas(ListaPiscinas* lista, int id) {
+    ListaPiscinas* atual = lista;
+    while (atual != NULL) {
+        if (atual->piscina->id == id) {
+            return 1;
+        }
+        atual = atual->prox_elemento;
+    }
+    return 0;
+}
+
+void adicionar_piscina(ListaPiscinas** lista) {
     Piscina* piscina = malloc(sizeof(Piscina));
     if (piscina == NULL) {
         printf("Erro ao alocar memória! Encerrando o programa...\n");
@@ -106,17 +113,21 @@ void adiconar_piscina(ListaPiscinas** lista) {
     }
 
     piscina->id = total_piscinas(*lista) + 1;
-    printf("PISCINA %d\n", piscina->id);
+    while (verifica_id_piscinas(*lista, piscina->id)) {
+        piscina->id++;
+    }
+
+    printf("PISCINA %03d\n", piscina->id);
     printf("Informe a capacidade maxima: ");
     scanf("%d", &piscina->capacidade_max);
     printf("Informe a profundidade: ");
     scanf("%f", &piscina->profundidade);
 
-    piscina->num_clientes = 0;
-    
+    piscina->clientes = 0;
+
     *lista = insere_elemento_piscinas(*lista, piscina);
 
-    printf("Piscina cadastrada com sucesso!\n\n");
+    printf("Piscina cadastrada com sucesso!\n");
 }
 
 void remover_piscina(ListaPiscinas** lista) {
@@ -151,60 +162,75 @@ void remover_piscina(ListaPiscinas** lista) {
     printf("Piscina removida com sucesso!\n");
 }
 
-Piscina* buscar_piscina(ListaPiscinas* lista) {
-    int id;
-    printf("Informe o ID da piscina que deseja buscar: ");
-    scanf("%d", &id);
+void quantidade_banhistas(ListaPiscinas* lista) {
+    ListaPiscinas* atual = lista;
+    while (atual != NULL) {
+        printf("PISCINA %03d\n", atual->piscina->id);
+        printf("Clientes: %d\n\n", atual->piscina->clientes);
 
-    ListaPiscinas* elemento_atual = lista;
-    while (elemento_atual != NULL) {
-        if (elemento_atual->piscina->id == id) {
-            break;
-        }
-        printf("PISCINA %d\n", elemento_atual->piscina->id);
-        printf("Capacidade maxima: %d\n", elemento_atual->piscina->capacidade_max);
-        printf("Profundidade: %.2f\n", elemento_atual->piscina->profundidade);
-        printf("Clientes: %d\n", elemento_atual->piscina->num_clientes);
-        elemento_atual = elemento_atual->prox_elemento;
+        atual = atual->prox_elemento;
     }
-
-    if (elemento_atual == NULL) {
-        printf("Piscina nao encontrada!\n");
-        return NULL;
-    }
-
-    return elemento_atual->piscina;
 }
 
-void adiciona_cliente_a_piscina(ListaPiscinas* lista_piscinas, ListaClientes* lista_clientes) {
+void adicionar_banhistas(ListaPiscinas* lista) {
+    imprime_lista_piscinas(lista);
 
-    Piscina* piscina = buscar_piscina(lista_piscinas);
-    Cliente* cliente = buscar_cliente(lista_clientes);
+    int id;
+    printf("Informe o ID da piscina que deseja adicionar banhistas: ");
+    scanf("%d", &id);
 
-    ListaTodosClientes* novo_cliente = malloc(sizeof(ListaTodosClientes));
-    if (novo_cliente == NULL) {
-        printf("Erro ao alocar memória! Encerrando o programa...\n");
-        exit(1);
-    }
-    
-    novo_cliente->cliente = cliente;
-    novo_cliente->prox_elemento = NULL;
-
-    if (piscina->clientes == NULL) {
-        piscina->clientes = novo_cliente;
-    } else {
-        ListaTodosClientes* atual = piscina->clientes;
-        while (atual->prox_elemento != NULL) {
-            atual = atual->prox_elemento;
-        }
-        atual->prox_elemento = novo_cliente;
+    ListaPiscinas* atual = lista;
+    while (atual != NULL && atual->piscina->id != id) {
+        atual = atual->prox_elemento;
     }
 
-    piscina->num_clientes++;
+    if (atual == NULL) {
+        printf("Piscina nao encontrada!\n");
+        return;
+    }
+
+    int quantidade;
+    printf("Informe a quantidade de banhistas: ");
+    scanf("%d", &quantidade);
+
+    atual->piscina->clientes += quantidade;
+
+    printf("Banhistas adicionados com sucesso!\n");
+}
+
+void remover_banhistas(ListaPiscinas* lista) {
+    imprime_lista_piscinas(lista);
+
+    int id;
+    printf("Informe o ID da piscina que deseja remover banhistas: ");
+    scanf("%d", &id);
+
+    ListaPiscinas* atual = lista;
+    while (atual != NULL && atual->piscina->id != id) {
+        atual = atual->prox_elemento;
+    }
+
+    if (atual == NULL) {
+        printf("Piscina nao encontrada!\n");
+        return;
+    }
+
+    int quantidade;
+    printf("Informe a quantidade de banhistas: ");
+    scanf("%d", &quantidade);
+
+    if (atual->piscina->clientes < quantidade) {
+        printf("Nao e possivel remover essa quantidade de banhistas!\n");
+        return;
+    }
+
+    atual->piscina->clientes -= quantidade;
+
+    printf("Banhistas removidos com sucesso!\n");
 }
 
 void atualiza_arquivo_piscinas(ListaPiscinas* lista) {
-    FILE* arquivo = fopen("piscinas.txt", "w");
+    FILE* arquivo = fopen("../resources/piscinas.txt", "w");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo! Encerrando o programa...\n");
         exit(1);
@@ -212,36 +238,10 @@ void atualiza_arquivo_piscinas(ListaPiscinas* lista) {
 
     ListaPiscinas* atual = lista;
     while (atual != NULL) {
-        fprintf(arquivo, "%d\t%d\t%.2f\t%d\n", atual->piscina->id, atual->piscina->capacidade_max, atual->piscina->profundidade, atual->piscina->clientes);
-        
+        fprintf(arquivo, "%03d\t%d\t%.2f\t%d\n", atual->piscina->id, atual->piscina->capacidade_max, atual->piscina->profundidade, atual->piscina->clientes);
+
         atual = atual->prox_elemento;
     }
 
     fclose(arquivo);
 }
-
-// int main() {
-//     ListaPiscinas* lista = listar_piscinas();
-
-//     lista_vazia(lista) ? printf("Lista vazia\n") : printf("Lista nao vazia\n");
-    
-//     // for (int i = 0; i < 5; i++) {
-//     //     adiconar_piscina(&lista);
-//     // }
-
-//     // lista_vazia(lista) ? printf("Lista vazia\n") : printf("Lista nao vazia\n");
-    
-//     // remover_piscina(&lista);
-
-//     imprime_lista(lista);
-
-//     // atualiza_arquivo(lista);
-
-//     while (lista != NULL) {
-//         ListaPiscinas* prox_elemento = lista->prox_elemento;
-//         free(lista);
-//         lista = prox_elemento;
-//     }
-
-//     return 0;
-// }
