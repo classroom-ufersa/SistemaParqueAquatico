@@ -1,35 +1,89 @@
-#include "cliente.c"
+#include "sistema.c"
 #include "piscina.c"
+#include "cliente.c"
 
 int main() {
-    ListaPiscinas* piscinas = cria_lista_piscinas();
-    ListaClientes* clientes = cria_lista_clientes();
+    char opcao;
 
-    /* --- MENU --- */
-    // 1- Adiciona piscina;
-    // adicionar_piscina(piscinas);
+    printf("Inicializando o Sistema de Piscinas...\n\n");
+    ListaPiscinas* lista_piscinas = listar_piscinas();
+    sleep(2);
+    system("cls");
 
-    // 2- Remover piscina;
-    // remover_piscina(piscinas);
+    printf("Inicializando o Sistema de Clientes...\n\n");
+    ListaClientes* lista_clientes = listar_clientes();
+    sleep(2);
+    system("cls");
 
-    // 3- Adiciona cliente;
-    // adicionar_cliente(clientes);
+    while (1) {
+        printf("1|\t Adicionar Piscina\n");
+        printf("2|\t Remover Piscina\n");
+        printf("3|\t Adicionar Cliente\n");
+        printf("4|\t Remover Cliente\n");
+        printf("5|\t Editar Informacoes de Cliente\n");
+        printf("6|\t Buscar Cliente por Nome\n");
+        printf("7|\t Adiciona Clientes na Piscina\n");
+        printf("8|\t Remove Clientes da Piscina\n");
+        printf("9|\t Sair\n\n");
 
-    // 4- Remover cliente;
-    // remover_cliente(clientes);
+        printf("Digite a opcao desejada: ");
+        scanf(" %c", &opcao);
+        getchar();
 
-    // 5- Editar informação do cliente
-    // editar_cliente(clientes);
-
-    // 6- Buscar Cliente por documento
-    // buscar_cliente(clientes);
-
-    // 7- Listar piscinas e o número de clientes presentes
-    adiciona_cliente_a_piscina(piscinas, clientes); //essa função chama a de buscar_piscina e buscar_cliente
-    listar_piscinas(piscinas);
+        if (opcao == '1') {
+            system("cls");
+            adicionar_piscina(&lista_piscinas);
+            pressiona_enter();
+            system("cls");
+        } else if (opcao == '2') {
+            system("cls");
+            remover_piscina(&lista_piscinas);
+            pressiona_enter();
+            system("cls");
+        } else if (opcao == '3') {
+            system("cls");
+            cadastrar_cliente(&lista_clientes);
+            pressiona_enter();
+            system("cls");
+        } else if (opcao == '4') {
+            system("cls");
+            remover_cliente(&lista_clientes);
+            pressiona_enter();
+            system("cls");
+        } else if (opcao == '5') {
+            system("cls");
+            editar_cliente(&lista_clientes);
+            pressiona_enter();
+            system("cls");
+        } else if (opcao == '6') {
+            system("cls");
+            buscar_cliente(lista_clientes);
+            pressiona_enter();
+            system("cls");
+        } else if (opcao == '7') {
+            adicionar_banhistas(lista_piscinas);
+            pressiona_enter();
+            system("cls");
+            imprime_lista_piscinas(lista_piscinas);
+            pressiona_enter();
+            system("cls");
+        } else if  (opcao == '8') {
+            remover_banhistas(lista_piscinas);
+            pressiona_enter();
+            system("cls");
+            imprime_lista_piscinas(lista_piscinas);
+            pressiona_enter();
+            system("cls");
+        } else if (opcao == '9') {
+            atualiza_arquivo_clientes(lista_clientes);
+            atualiza_arquivo_piscinas(lista_piscinas);
+            break;
+        } else {
+            printf("Opcao Invalida!\n");
+            sleep(2);
+            system("cls");
+        }
+    }
     
-    atualiza_arquivo_piscinas(piscinas);
-    atualiza_arquivo_clientes(clientes);
-
     return 0;
 }
